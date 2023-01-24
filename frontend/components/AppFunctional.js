@@ -18,6 +18,19 @@ export default function AppFunctional(props) {
   function getXY() {
     // It it not necessary to have a state to track the coordinates.
     // It's enough to know what index the "B" is at, to be able to calculate them.
+
+    let x;
+    let y;
+
+    if(idx<3) y=1;
+    if(idx>2 && idx<6) y=2;
+    if(idx>5) y=3;
+
+    if(idx%3===0) x=1;
+    if((idx-1)%3===0) x=2;
+    if((idx-2)%3===0) x=3;
+
+    return [x, y];
   }
 
   function getXYMessage() {
@@ -34,10 +47,6 @@ export default function AppFunctional(props) {
   }
 
   function getNextIndex(direction) {
-    // This helper takes a direction ("left", "up", etc) and calculates what the next index
-    // of the "B" would be. If the move is impossible because we are at the edge of the grid,
-    // this helper should return the current index unchanged.
-
     if(direction==="left") {
       if(idx%3!==0) return(idx-1);
       return idx;
@@ -56,13 +65,6 @@ export default function AppFunctional(props) {
     }
   }
 
-  function move(evt) {
-    // This event handler can use the helper above to obtain a new index for the "B",
-    // and change any states accordingly.
-
-    setIdx(getNextIndex(evt.target.textContent.toLowerCase()));
-  }
-
   function onChange(evt) {
     // You will need this to update the value of the input.
   }
@@ -70,6 +72,15 @@ export default function AppFunctional(props) {
   function onSubmit(evt) {
     // Use a POST request to send a payload to the server.
   }
+
+  function onClick(evt) {
+    if(evt.target.id==="reset") {reset();}
+    else setIdx(getNextIndex(evt.target.textContent.toLowerCase()));
+  }
+
+  useEffect( () => {
+    console.log(getXY());
+  }, [idx])
 
   return (
     <div id="wrapper" className={props.className}>
@@ -90,11 +101,11 @@ export default function AppFunctional(props) {
         <h3 id="message"></h3>
       </div>
       <div id="keypad">
-        <button id="left" onClick={move}>LEFT</button>
-        <button id="up" onClick={move}>UP</button>
-        <button id="right" onClick={move}>RIGHT</button>
-        <button id="down" onClick={move}>DOWN</button>
-        <button id="reset">reset</button>
+        <button id="left" onClick={onClick}>LEFT</button>
+        <button id="up" onClick={onClick}>UP</button>
+        <button id="right" onClick={onClick}>RIGHT</button>
+        <button id="down" onClick={onClick}>DOWN</button>
+        <button id="reset" onClick={onClick}>reset</button>
       </div>
       <form>
         <input id="email" type="email" placeholder="type email"></input>
