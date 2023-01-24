@@ -76,6 +76,7 @@ export default function AppFunctional(props) {
   }
 
   function onClick(evt) {
+    setSteps(steps+1);
     if(evt.target.id==="reset") {reset();}
     else setIdx(getNextIndex(evt.target.textContent.toLowerCase()));
   }
@@ -84,7 +85,7 @@ export default function AppFunctional(props) {
     <div id="wrapper" className={props.className}>
       <div className="info">
         <h3 id="coordinates">Coordinates {getXYStr()}</h3>
-        <h3 id="steps">You moved 0 times</h3>
+        <h3 id="steps">You moved {steps} times</h3>
       </div>
       <div id="grid">
         {
