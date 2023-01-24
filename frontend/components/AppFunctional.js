@@ -33,10 +33,10 @@ export default function AppFunctional(props) {
     return [x, y];
   }
 
-  function getXYMessage() {
-    // It it not necessary to have a state to track the "Coordinates (2, 2)" message for the user.
-    // You can use the `getXY` helper above to obtain the coordinates, and then `getXYMessage`
-    // returns the fully constructed string.
+  function getXYStr() {
+    const [x, y] = getXY();
+
+    return (`(${x}, ${y})`);
   }
 
   function reset() {
@@ -47,20 +47,22 @@ export default function AppFunctional(props) {
   }
 
   function getNextIndex(direction) {
+    const[x, y] = getXY();
+
     if(direction==="left") {
-      if(idx%3!==0) return(idx-1);
+      if(x!==1) return(idx-1);
       return idx;
     }
     if(direction==="right") {
-      if((idx+1)%3!==0) return(idx+1);
+      if(x!==3) return(idx+1);
       return idx;
     }
     if(direction==="up") {
-      if(idx>2) return(idx-3);
+      if(y!==1) return(idx-3);
       return idx;      
     }
     if(direction==="down") {
-      if(idx<6) return(idx+3);
+      if(y!==3) return(idx+3);
       return idx;
     }
   }
@@ -78,14 +80,10 @@ export default function AppFunctional(props) {
     else setIdx(getNextIndex(evt.target.textContent.toLowerCase()));
   }
 
-  useEffect( () => {
-    console.log(getXY());
-  }, [idx])
-
   return (
     <div id="wrapper" className={props.className}>
       <div className="info">
-        <h3 id="coordinates">Coordinates (2, 2)</h3>
+        <h3 id="coordinates">Coordinates {getXYStr()}</h3>
         <h3 id="steps">You moved 0 times</h3>
       </div>
       <div id="grid">
