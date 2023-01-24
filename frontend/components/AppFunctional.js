@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import axios from "axios";
 
 const initialMessage = ''
 const initialEmail = ''
@@ -65,7 +66,20 @@ export default function AppFunctional(props) {
   }
 
   function onSubmit(evt) {
-    // Use a POST request to send a payload to the server.
+    evt.preventDefault();
+
+    const [x, y] = getXY();
+
+    axios.post("http://localhost:9000/api/result", {
+      x: x,
+      y: y,
+      steps: steps,
+      email: email
+    })
+    .then(res => {setMessage(res.data.message)})
+    .catch(err => console.error(err));
+    
+    setEmail(initialEmail);
   }
 
   function onClick(evt) {
@@ -90,7 +104,7 @@ export default function AppFunctional(props) {
         }
       </div>
       <div className="info">
-        <h3 id="message"></h3>
+        <h3 id="message">{message}</h3>
       </div>
       <div id="keypad">
         <button id="left" onClick={onClick}>LEFT</button>
