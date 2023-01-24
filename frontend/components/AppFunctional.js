@@ -44,19 +44,35 @@ export default function AppFunctional(props) {
     const[x, y] = getXY();
 
     if(direction==="left") {
-      if(x!==1) return(idx-1);
+      if(x!==1) {
+        setSteps(steps+1);
+        return(idx-1);
+      }
+      setMessage("You can't go left");
       return idx;
     }
     if(direction==="right") {
-      if(x!==3) return(idx+1);
+      if(x!==3) {
+        setSteps(steps+1);
+        return(idx+1);
+      }
+      setMessage("You can't go right");
       return idx;
     }
     if(direction==="up") {
-      if(y!==1) return(idx-3);
+      if(y!==1) {
+        setSteps(steps+1);
+        return(idx-3);
+      }
+      setMessage("You can't go up");
       return idx;      
     }
     if(direction==="down") {
-      if(y!==3) return(idx+3);
+      if(y!==3) {
+        setSteps(steps+1);
+        return(idx+3);
+      }
+      setMessage("You can't go down");
       return idx;
     }
   }
@@ -83,7 +99,7 @@ export default function AppFunctional(props) {
   }
 
   function onClick(evt) {
-    setSteps(steps+1);
+    setMessage(initialMessage);
     if(evt.target.id==="reset") {reset();}
     else setIdx(getNextIndex(evt.target.textContent.toLowerCase()));
   }
