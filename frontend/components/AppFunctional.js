@@ -1,12 +1,17 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 
 // Suggested initial states
 const initialMessage = ''
 const initialEmail = ''
 const initialSteps = 0
-const initialIndex = 4 // the index the "B" is at
+const initialIndex = 0 // the index the "B" is at
 
 export default function AppFunctional(props) {
+  const [idx, setIdx] = useState(initialIndex);
+  const [steps, setSteps] = useState(initialSteps);
+  const [email, setEmail] = useState(initialEmail);
+  const [message, setMessage] = useState(initialMessage);
+
   // THE FOLLOWING HELPERS ARE JUST RECOMMENDATIONS.
   // You can delete them and build your own logic from scratch.
 
@@ -22,18 +27,40 @@ export default function AppFunctional(props) {
   }
 
   function reset() {
-    // Use this helper to reset all states to their initial values.
+    setIdx(initialIndex);
+    setSteps(initialSteps);
+    setEmail(initialEmail);
+    setMessage(initialMessage);
   }
 
   function getNextIndex(direction) {
     // This helper takes a direction ("left", "up", etc) and calculates what the next index
     // of the "B" would be. If the move is impossible because we are at the edge of the grid,
     // this helper should return the current index unchanged.
+
+    if(direction==="left") {
+      if(idx%3!==0) return(idx-1);
+      return idx;
+    }
+    if(direction==="right") {
+      if((idx+1)%3!==0) return(idx+1);
+      return idx;
+    }
+    if(direction==="up") {
+      if(idx>2) return(idx-3);
+      return idx;      
+    }
+    if(direction==="down") {
+      if(idx<6) return(idx+3);
+      return idx;
+    }
   }
 
   function move(evt) {
     // This event handler can use the helper above to obtain a new index for the "B",
     // and change any states accordingly.
+
+
   }
 
   function onChange(evt) {
@@ -43,6 +70,8 @@ export default function AppFunctional(props) {
   function onSubmit(evt) {
     // Use a POST request to send a payload to the server.
   }
+
+  console.log(getNextIndex("down"));
 
   return (
     <div id="wrapper" className={props.className}>
