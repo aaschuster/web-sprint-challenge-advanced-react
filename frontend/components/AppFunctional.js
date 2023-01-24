@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react'
 
-// Suggested initial states
 const initialMessage = ''
 const initialEmail = ''
 const initialSteps = 0
@@ -12,13 +11,7 @@ export default function AppFunctional(props) {
   const [email, setEmail] = useState(initialEmail);
   const [message, setMessage] = useState(initialMessage);
 
-  // THE FOLLOWING HELPERS ARE JUST RECOMMENDATIONS.
-  // You can delete them and build your own logic from scratch.
-
   function getXY() {
-    // It it not necessary to have a state to track the coordinates.
-    // It's enough to know what index the "B" is at, to be able to calculate them.
-
     let x;
     let y;
 
@@ -68,7 +61,7 @@ export default function AppFunctional(props) {
   }
 
   function onChange(evt) {
-    // You will need this to update the value of the input.
+    setEmail(evt.target.value);
   }
 
   function onSubmit(evt) {
@@ -106,8 +99,14 @@ export default function AppFunctional(props) {
         <button id="down" onClick={onClick}>DOWN</button>
         <button id="reset" onClick={onClick}>reset</button>
       </div>
-      <form>
-        <input id="email" type="email" placeholder="type email"></input>
+      <form onSubmit={onSubmit}>
+        <input 
+          id="email"
+          type="email"
+          placeholder="type email"
+          onChange={onChange}
+          value={email}
+        ></input>
         <input id="submit" type="submit"></input>
       </form>
     </div>
