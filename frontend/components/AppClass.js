@@ -14,25 +14,67 @@ const initialState = {
 }
 
 export default class AppClass extends React.Component {
-  // THE FOLLOWING HELPERS ARE JUST RECOMMENDATIONS.
-  // You can delete them and build your own logic from scratch.
-
+  constructor() {
+    super();
+    state = {
+      idx: initialIndex,
+      email: initialEmail,
+      steps: initialSteps,
+      message: initialMessage
+    }
+  }
   getXY = () => {
-    // It it not necessary to have a state to track the coordinates.
-    // It's enough to know what index the "B" is at, to be able to calculate them.
+    idx = this.state.idx;
+    let x;
+    let y;
+
+    if(idx<3) y=1;
+    if(idx>2 && idx<6) y=2;
+    if(idx>5) y=3;
+
+    if(idx%3===0) x=1;
+    if((idx-1)%3===0) x=2;
+    if((idx-2)%3===0) x=3;
+
+    return [x, y];
   }
 
   getXYMessage = () => {
-    // It it not necessary to have a state to track the "Coordinates (2, 2)" message for the user.
-    // You can use the `getXY` helper above to obtain the coordinates, and then `getXYMessage`
-    // returns the fully constructed string.
+    const [x, y] = getXY();
+
+    return (`(${x}, ${y})`);
   }
 
   reset = () => {
-    // Use this helper to reset all states to their initial values.
+    this.setState({
+      idx: initialIndex,
+      email: initialEmail,
+      steps: initialSteps,
+      message: initialMessage
+    });
   }
 
   getNextIndex = (direction) => {
+    const [x, y] = getXY;
+    idx = this.state.idx;
+
+    if(direction==="left") {
+      if(x!==1) {
+        this.setState({steps: steps+1});
+        return(idx-1);
+      }
+      this.setState({message: "You can't go left"});
+      return idx;
+    }
+    if(direction==="right") {
+      if(x!==3) {
+        this.setState({steps: steps+1});
+        return(idx+1);
+      }
+      this.setState({message: "You can't go right"});
+      return idx;
+    }
+
     // This helper takes a direction ("left", "up", etc) and calculates what the next index
     // of the "B" would be. If the move is impossible because we are at the edge of the grid,
     // this helper should return the current index unchanged.

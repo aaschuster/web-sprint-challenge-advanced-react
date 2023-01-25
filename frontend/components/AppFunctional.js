@@ -48,33 +48,27 @@ export default function AppFunctional(props) {
         setSteps(steps+1);
         return(idx-1);
       }
-      setMessage("You can't go left");
-      return idx;
     }
     if(direction==="right") {
       if(x!==3) {
         setSteps(steps+1);
         return(idx+1);
       }
-      setMessage("You can't go right");
-      return idx;
     }
     if(direction==="up") {
       if(y!==1) {
         setSteps(steps+1);
         return(idx-3);
-      }
-      setMessage("You can't go up");
-      return idx;      
+      }    
     }
     if(direction==="down") {
       if(y!==3) {
         setSteps(steps+1);
         return(idx+3);
       }
-      setMessage("You can't go down");
-      return idx;
     }
+    setMessage(`You can't go ${direction}`);
+    return idx;
   }
 
   function onChange(evt) {
