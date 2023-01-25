@@ -40,32 +40,26 @@ export default function AppFunctional(props) {
     setMessage(initialMessage);
   }
 
+  function incrementSteps() {setSteps(steps+1);}
+
   function getNextIndex(direction) {
     const[x, y] = getXY();
 
-    if(direction==="left") {
-      if(x!==1) {
-        setSteps(steps+1);
+    if(direction==="left" && x!==1) {
+        incrementSteps();
         return(idx-1);
-      }
     }
-    if(direction==="right") {
-      if(x!==3) {
-        setSteps(steps+1);
+    if(direction==="right" && x!==3) {
+        incrementSteps();
         return(idx+1);
-      }
     }
-    if(direction==="up") {
-      if(y!==1) {
-        setSteps(steps+1);
+    if(direction==="up" && y!==1) {
+        incrementSteps();
         return(idx-3);
-      }    
     }
-    if(direction==="down") {
-      if(y!==3) {
-        setSteps(steps+1);
+    if(direction==="down" && y!==3) {
+        incrementSteps();
         return(idx+3);
-      }
     }
     setMessage(`You can't go ${direction}`);
     return idx;
