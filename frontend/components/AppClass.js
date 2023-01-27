@@ -90,12 +90,6 @@ export default class AppClass extends React.Component {
     evt.preventDefault();
 
     const [x, y] = this.getXY();
-    console.log({
-      x: x,
-      y: y,
-      steps: this.state.steps,
-      email: this.state.email
-    })
 
     axios.post("http://localhost:9000/api/result", {
       x: x,
