@@ -26,18 +26,20 @@ test("class based app is class based", () => {
     .toBeTruthy();
 });
 
-test("ClassBased - active square is initially at index 4", () => {
-  render(<AppClass/>);
+[AppFunctional, AppClass].forEach((Component, idx) => {
+  const label = idx === 0 ? "Functional" : "Class Based";
 
-  const squares = document.querySelectorAll(".square");
-  expect(squares[4].textContent).toBe("B");
-  expect(squares[4].className).toMatch(/active/);
+  beforeEach(() => render(<Component/>));
+
+  test(`${label} - active square is initially at index 4`, () => {
+    const squares = document.querySelectorAll(".square");
+    expect(squares[4].textContent).toBe("B");
+    expect(squares[4].className).toMatch(/active/);
+  })
 })
 
-test("Functional - active square is initially at index 4", () => {
-  render(<AppFunctional />);
 
-  const squares = document.querySelectorAll(".square");
-  expect(squares[4].textContent).toBe("B");
-  expect(squares[4].className).toMatch(/active/);
+
+test("ClassBased - coordinates initially read (2, 2)", () => {
+
 })
