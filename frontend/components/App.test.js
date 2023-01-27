@@ -60,8 +60,41 @@ function updateSelectors(document) {
     expect(squares[0].className).toMatch(/active/);
   })
 
+  test(`${label} - active square is at index 8 after movement`, () => {
+    fireEvent.click(down);
+    fireEvent.click(right);
+    expect(squares[8].textContent).toBe("B");
+    expect(squares[8].className).toMatch(/active/);
+  })
+
+  test(`${label} - active square is at index 2 after movement, including attempted out of bounds movement`, () => {
+    fireEvent.click(up);
+    fireEvent.click(right);
+    fireEvent.click(right);
+    expect(squares[2].textContent).toBe("B");
+    expect(squares[2].className).toMatch(/active/);
+  })
+
   test(`${label} - coordinates initially read (2,2)`, () => {
     expect(coords.textContent).toMatch(/\(2.*2\)$/);
+  })
+
+  test(`${label} - coordinates read (1, 2) after movement`, () => {
+    fireEvent.click(left);
+    expect(coords.textContent).toMatch(/\(1.*2\)$/);
+  })
+
+  test(`${label} - coordinates read (1, 3) after movement`, () => {
+    fireEvent.click(left);
+    fireEvent.click(down);
+    expect(coords.textContent).toMatch(/\(1.*3\)$/);
+  })
+
+  test(`${label} - coordinates read (3, 3) after movement, including attempted out of bounds movement`, () => {
+    fireEvent.click(right);
+    fireEvent.click(down);
+    fireEvent.click(down);
+    expect(coords.textContent).toMatch(/\(3.*3\)$/);
   })
 
   test(`${label} - steps counter intially reads 0`, () => {
