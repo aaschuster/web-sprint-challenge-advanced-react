@@ -100,4 +100,38 @@ function updateSelectors(document) {
   test(`${label} - steps counter intially reads 0`, () => {
     expect(steps.textContent).toBe("You moved 0 times");
   })
+
+  test(`${label} - steps counter is not pluralized when only moved once`, () => {
+    fireEvent.click(up);
+    expect(steps.textContent).toBe("You moved 1 time");
+  })
+
+  test(`${label} - steps counter updates properly`, () => {
+    fireEvent.click(up);
+    fireEvent.click(left);
+    fireEvent.click(right);
+    fireEvent.click(down);
+    fireEvent.click(down);
+    fireEvent.click(right);
+
+    expect(steps.textContent).toBe("You moved 6 times");
+  })
+
+  test(`${label} - step counter doesn't update if out of bounds movement is attempted`, () => {
+    fireEvent.click(up);
+    fireEvent.click(up);
+    fireEvent.click(left);
+    fireEvent.click(left);
+    fireEvent.click(down);
+    fireEvent.click(down);
+    fireEvent.click(down);
+    fireEvent.click(right);
+    fireEvent.click(right);
+    fireEvent.click(right);
+    fireEvent.click(left);
+    fireEvent.click(left);
+    fireEvent.click(left);
+
+    expect(steps.textContent).toBe("You moved 8 times");
+  })
 })
